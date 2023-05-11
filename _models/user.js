@@ -43,7 +43,8 @@ const User = db.sequelize.define('User', {
     type: DataTypes.BIGINT
   },
   type: {
-    type: DataTypes.INTEGER(11)
+    type: DataTypes.INTEGER(11),
+    defaultValue: 0
   },
   forget_pass_code: {
     type: DataTypes.STRING(255)

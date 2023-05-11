@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Joi  = require("joi");
 const User = require("../_models/user");
+const SendMail = require("../_helpers/mail");
+const { EMAIL_FROM } = require("../_config/env");
 
 
 router.post("/register", async(req, res) => {
@@ -54,11 +56,19 @@ router.post("/register", async(req, res) => {
 
         const user = await User.create(data);
 
-        return res.json({
-            status: true,
-            message: 'Registered successfully',
-            data: null
-        });
+        if(user){
+
+            //send Mail for new Signup with confirm new signup 
+            const sendMail = await SendMail(EMAIL_FROM, email, 'Job', `${EMAIL_FROM} Shared a file with you`, 'hjdhkdh');
+            
+            return res.json({
+                status: true,
+                message: 'Registered successfully',
+                data: null
+            });
+        }
+
+        
 
     }catch(err){
         return res.json({
