@@ -3,18 +3,71 @@ const db = require("../_db/index");
 
 const User = db.sequelize.define('User', {
   // Model attributes are defined here
+  id: {
+      autoIncrement: true,
+      type: DataTypes.BIGINT.UNSIGNED,
+      allowNull: false,
+      primaryKey: true
+  },
+  parent_id: {
+    type: DataTypes.BIGINT
+  },
   username: {
-    type: DataTypes.STRING(222),
+    type: DataTypes.STRING(255),
     allowNull: false
-  }
-  ,
+  },
   email: {
-    type: DataTypes.STRING(222),
+    type: DataTypes.STRING(255),
     allowNull: false
   },
   password: {
-    type: DataTypes.STRING(222)
+    type: DataTypes.STRING(255)
     // allowNull defaults to true
+  },
+  first_name: {
+    type: DataTypes.STRING(255)
+  },
+  last_name: {
+    type: DataTypes.STRING(255)
+  },
+  user_slug: {
+    type: DataTypes.STRING(255)
+  },
+  mobile: {
+    type: DataTypes.STRING(255)
+  },
+  otp_number: {
+    type: DataTypes.STRING(255)
+  },
+  otp_exp_time: {
+    type: DataTypes.BIGINT
+  },
+  type: {
+    type: DataTypes.INTEGER(11)
+  },
+  forget_pass_code: {
+    type: DataTypes.STRING(255)
+  },
+  forget_pass_code_exptime: {
+    type: DataTypes.STRING(255)
+  },
+  status: {
+    type: DataTypes.INTEGER(11)
+  },
+  avatar: {
+    type: DataTypes.STRING(255)
+  },
+  send_otp: {
+    type: DataTypes.INTEGER(11)
+  },
+  admin_status: {
+    type: DataTypes.INTEGER(11)
+  },
+  current_solution_id: {
+    type: DataTypes.INTEGER(11)
+  },
+  current_solution_name: {
+    type: DataTypes.STRING(255)
   }
 }, {
 
