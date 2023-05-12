@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Joi  = require("joi");
 const User = require("../_models/user");
-const SendMail = require("../_helpers/mail");
-const { EMAIL_FROM } = require("../_config/env");
+const {SendMail, emailLayout} = require("../_helpers/mail");
+const { EMAIL_FROM,origin } = require("../_config/env");
 const { GeneratePassword, GenerateSalt } = require("../_helpers/bcrypt");
 
 
@@ -23,7 +23,7 @@ router.post("/register", async(req, res) => {
             repeat_password: Joi.ref('password'),
 
             email: Joi.string()
-            .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
+            .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'live'] } })
             .required()
         }).validate(req.body)
 
@@ -67,7 +67,11 @@ router.post("/register", async(req, res) => {
         if(user){
 
             //send Mail for new Signup with confirm new signup 
-            const sendMail = await SendMail(EMAIL_FROM, email, 'Job', `${EMAIL_FROM} Shared a file with you`, 'hjdhkdh');
+          
+            let content = "<h3>  Your Account  Successfully Verified...! </h3>";
+            const link = `${origin}/auth/profile/${user.email}`;
+            let html = await emailLayout(user.email, content, link);
+            const sendMail = await SendMail(EMAIL_FROM, email, 'Job', `${EMAIL_FROM} Shared a file with you`, html);
             
             return res.json({
                 status: true,
@@ -81,7 +85,7 @@ router.post("/register", async(req, res) => {
     }catch(err){
         return res.json({
             status: false,
-            message: 'Please fill the fields required',
+            message: 'Please fill the fields required'+err.message,
             data: null
         });
     }
