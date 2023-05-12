@@ -3,6 +3,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const env = require("../_config/env");
 const db = require("../_db/index");
+const { authenticate } = require("../_middlewares/auth");
 
 
 
@@ -29,9 +30,12 @@ app.use(express.urlencoded({extended: true}));
 const prefix = '/auth';
 
 app.use(prefix, require('./login'));
-app.use(prefix, require('./logout'));
-app.use(prefix, require('./profile'));
 app.use(prefix, require('./register'));
+app.use(prefix, require('./logout'));
+
+//app.use(authenticate)   On all below Routes this middleware works
+app.use(prefix, authenticate , require('./profile'));
+
 
 
 

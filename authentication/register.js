@@ -4,6 +4,7 @@ const Joi  = require("joi");
 const User = require("../_models/user");
 const SendMail = require("../_helpers/mail");
 const { EMAIL_FROM } = require("../_config/env");
+const { GeneratePassword, GenerateSalt } = require("../_helpers/bcrypt");
 
 
 router.post("/register", async(req, res) => {
@@ -38,10 +39,17 @@ router.post("/register", async(req, res) => {
 
         const {username, email, password } = req.body;
 
+        //Generate the Salt
+        const salt = await GenerateSalt();
+        
+        //Encrypt the Password Using the Salt : Use Bcrypt Library
+        const hashPassword = await GeneratePassword(password, salt);
+
+
         const data = {
             'username' : username,
             'email' : email,
-            'password' : password
+            'password' : hashPassword
         }
 
         const rec = await User.findOne({ where: {email: email} });

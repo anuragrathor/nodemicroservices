@@ -3,6 +3,8 @@ const router = express.Router();
 const Joi  = require("joi");
 const User = require("../_models/user");
 const { Op, and } = require("sequelize");
+const { ValidatePassword } = require("../_helpers/bcrypt");
+const { GenerateSignature } = require("../_helpers/jwt");
 
 router.post("/login", async(req, res) => {
 
@@ -32,21 +34,42 @@ router.post("/login", async(req, res) => {
         const {email, password } = req.body;
 
         const rec = await User.findOne({ 
-            where: 
-            {
-                [Op.and]: [
-                    { email: email },
-                    { password: password }
-                ]
-            } 
+            where: { 
+                email: email 
+            }
         });
 
         if(rec){
-            return res.json({
-                status: true,
-                message: 'Login successfully',
-                data: rec
-            });
+
+            //Validate Password using Bcrypt
+            const validatePass =  await ValidatePassword(password, rec.password);
+          
+
+            if(validatePass){
+
+                // generate the signnature
+                const payload = {
+                    id: rec.id,
+                    email: rec.email
+                }
+
+                const signature = await GenerateSignature(payload);
+                
+                return res.json({
+                    status: true,
+                    message: 'Login successfully',
+                    data: signature
+                });
+            }else{
+                return res.json({
+                    status: true,
+                    message: 'Password is not correct',
+                    data: validatePass
+                });
+            }
+
+
+            
         }else{
             return res.json({
                 status: false,
