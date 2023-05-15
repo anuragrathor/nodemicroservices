@@ -51,10 +51,10 @@ router.post("/login", async(req, res) => {
             }
 
             //Validate Password using Bcrypt
-            const validatePass =  await ValidatePassword(password, rec.password);
+            const isMatch =  await ValidatePassword(password, rec.password);
           
 
-            if(validatePass){
+            if(isMatch){
 
                 // generate the signnature
                 const payload = {
@@ -73,7 +73,7 @@ router.post("/login", async(req, res) => {
                 return res.json({
                     status: true,
                     message: 'Password is not correct',
-                    data: validatePass
+                    data: isMatch
                 });
             }
 

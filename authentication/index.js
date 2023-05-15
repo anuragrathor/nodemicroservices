@@ -33,6 +33,7 @@ app.use(prefix, require('./logout'));
 app.use(prefix, require('./forgot-password'));
 app.use(prefix, require('./change-password'));
 app.use(prefix, require('./verify-email'));
+app.use(prefix, require('./reset-password'));
 
 
 //app.use(authenticate)   On all below Routes this middleware works

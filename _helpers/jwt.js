@@ -15,7 +15,12 @@ async function ValidateSignature(req){
     if(signature){
         const payload = await jwt.verify(signature.split(' ')[1], JWT_SECREAT_KEY);
         
-        req.user = payload;
+        const { id, email } = payload;
+        
+        
+        // console.log(id);
+        // console.log(email);
+        // console.log(payload);
 
         return true;
     }
