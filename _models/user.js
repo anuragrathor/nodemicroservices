@@ -72,7 +72,7 @@ const User = db.sequelize.define('User', {
   }
 }, {
 
-    //tableName: 'user'         // Forcefully give table name if we need
+    //tableName: 'videos'         // Forcefully give table name if we need
     //freezeTableName: true     // tables will use the same name as the model name  not use plural
   
 });
