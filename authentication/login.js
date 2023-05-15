@@ -41,6 +41,15 @@ router.post("/login", async(req, res) => {
 
         if(rec){
 
+            //Check Account Activated or Deactivated
+            if(!rec.status){
+                return res.json({
+                    status:false,
+                    message: 'User is not Activated. Please Activate your Account',
+                    data: rec 
+                })
+            }
+
             //Validate Password using Bcrypt
             const validatePass =  await ValidatePassword(password, rec.password);
           

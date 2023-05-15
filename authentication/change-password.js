@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Joi  = require("joi");
 const User = require("../_models/user");
+const { GenerateSalt } = require("../_helpers/bcrypt");
+const { GeneratePassword } = require("../_helpers/bcrypt");
 
 router.post("/change-password", async(req, res) => {
 
@@ -10,6 +12,7 @@ router.post("/change-password", async(req, res) => {
         const { email, password } = req.body;
         
         const schema = Joi.object({
+            email: Joi.string(),
             old_password: Joi.string()
             .pattern(new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})"))
             .required()
@@ -23,7 +26,7 @@ router.post("/change-password", async(req, res) => {
                     "string.pattern.base": "Password must contains at least 6 characters, including UPPER or lowercase with numbers."
             }),
             password_confirmation: Joi.any()
-            .equal(Joi.ref(password))
+            .equal(Joi.ref('password'))
             .required()
             .messages({'any.only': '{{#label}} does not match'}),
         }).validate(req.body)
@@ -36,9 +39,7 @@ router.post("/change-password", async(req, res) => {
             })
         }
 
-        
-
-
+    
         //let userId = req.userId;
 
         //Find record using userid email
@@ -50,8 +51,11 @@ router.post("/change-password", async(req, res) => {
             }
 
 
+            const salt = await GenerateSalt();
+            const hashPass = await GeneratePassword(password , salt);
+            
             // Change Password for Recovery
-            await User.update({ password: password }, 
+            await User.update({ password: hashPass }, 
                 {
                 where: {
                 email: rec.email
@@ -62,7 +66,7 @@ router.post("/change-password", async(req, res) => {
             return res.json({
                 status: true,
                 message: 'Password Updated Successfully',
-                data: userId
+                data: rec
             })
 
         }else{
