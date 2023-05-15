@@ -14,7 +14,7 @@ router.post("/login", async(req, res) => {
         const schema = Joi.object({
             email: Joi.string()
             .required()
-            .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
+            .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'live'] } }),
 
             password: Joi.string()
             .min(3)

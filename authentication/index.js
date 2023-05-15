@@ -30,6 +30,8 @@ const prefix = '/auth';
 app.use(prefix, require('./login'));
 app.use(prefix, require('./register'));
 app.use(prefix, require('./logout'));
+app.use(prefix, require('./forgot-password'));
+app.use(prefix, require('./change-password'));
 
 //app.use(authenticate)   On all below Routes this middleware works
 app.use(prefix, authenticate , require('./profile'));
