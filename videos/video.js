@@ -4,8 +4,12 @@ const Joi  = require("joi");
 const { Op, and, NUMBER } = require("sequelize");
 const Video_video = require("../_models/videos/video_video");
 const fs = require('fs');
+const multer  = require('multer');
+const { fileUploadConfig } = require("../_config/file-upload-config-video");
+const { uploadFile } = require("../_helpers/multer");
 
-const filePath = __dirname+"/test.mp4";
+const filePath = 'uploads/test.mp4';
+// const filePath = __dirname+"/test.mp4";
 
 
 router.post("/videos", async(req, res) => {
@@ -32,9 +36,26 @@ router.post("/videos", async(req, res) => {
 })
 
 
+
 router.get("/", (req, res) => {
     res.sendFile(__dirname+"/index.html");
 })
+
+
+//Upload Video using Multer
+router.post("/video-upload", async(req, res) => {
+
+    //Upload File Pass req res and input file type fields name
+    const rec = await uploadFile(req,res,'user-file');
+
+    return res.json({
+        status: true,
+        message: 'File upload Successfully',
+        data: rec
+    })
+ 
+})
+
 
 router.get("/playvideo", (req, res) => {
     
