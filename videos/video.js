@@ -45,7 +45,7 @@ router.get("/", (req, res) => {
 
 //Upload Video using Multer
 router.post("/video-upload", async(req, res) => {
-
+    const attributesToBeSaved = {};
     var upload = multer(fileUploadConfig).single('user-file');
     
     upload(req, res, function(uploadError){
@@ -56,34 +56,41 @@ router.post("/video-upload", async(req, res) => {
         } else if(uploadError.code === 'LIMIT_FILE_SIZE'){
             errorMessage = 'Maximum file size allowed is ' + process.env.FILE_SIZE + 'MB';
         }
+
+
         return res.json({
-            error: errorMessage
-        });
+            status: false,
+            message:errorMessage,
+            data: null
+        })
+
         }
 
         const fileId = req.file.filename.split('-')[0];
         const link = 'http://' + req.hostname + ':' + process.env.PORT + '/video/' + fileId
 
 
-        const attributesToBeSaved = {
-            id: fileId,
-            name: req.file.originalname,
-            size: req.file.size,
-            path: req.file.path,
-            encoding: req.file.encoding,
-            details: req.body.details ? req.body.details : '',
-            link: link
+        attributesToBeSaved = {
+            //id: fileId,
+            // title: req.file.originalname,
+            title: req.file.filename,
+            file_size: req.file.size,
+            url: req.file.path,
+            // encoding: req.file.encoding,
+            description: req.body.details ? req.body.details : '',
+            video_extention:video_extention,
+            // url: link
         }
         
-
-        return res.json({
-            status: true,
-            message:'File upload successfully',
-            data: attributesToBeSaved
-        })
     });
 
+    return res.json({
+        status: true,
+        message:'File upload successfully',
+        data: attributesToBeSaved
+    })
 
+    // const jane = await Video_video.create({ attributesToBeSaved });
     
 })
 
