@@ -28,7 +28,7 @@ app.use(express.urlencoded({extended: true}));
 const prefix = '/video';
 
 
-app.use(authenticate);
+//app.use(authenticate);
 
 app.use(prefix, require('./video'));
 
