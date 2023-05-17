@@ -5,8 +5,8 @@ const { Op, and, NUMBER } = require("sequelize");
 const Video_video = require("../_models/videos/video_video");
 const fs = require('fs');
 const multer  = require('multer');
-const { fileUploadConfig } = require("../_config/file-upload-config-video");
-const { uploadFile } = require("../_helpers/multer");
+const { fileUploadConfig } = require("../_helpers/multer");
+
 
 const filePath = 'uploads/test.mp4';
 // const filePath = __dirname+"/test.mp4";
@@ -37,6 +37,7 @@ router.post("/videos", async(req, res) => {
 
 
 
+
 router.get("/", (req, res) => {
     res.sendFile(__dirname+"/index.html");
 })
@@ -45,15 +46,45 @@ router.get("/", (req, res) => {
 //Upload Video using Multer
 router.post("/video-upload", async(req, res) => {
 
-    //Upload File Pass req res and input file type fields name
-    const rec = await uploadFile(req,res,'user-file');
+    var upload = multer(fileUploadConfig).single('user-file');
+    
+    upload(req, res, function(uploadError){
+        if(uploadError){
+        var errorMessage;
+        if(uploadError.code === 'LIMIT_FILE_TYPE') {
+            errorMessage = uploadError.errorMessage;
+        } else if(uploadError.code === 'LIMIT_FILE_SIZE'){
+            errorMessage = 'Maximum file size allowed is ' + process.env.FILE_SIZE + 'MB';
+        }
+        return res.json({
+            error: errorMessage
+        });
+        }
 
-    return res.json({
-        status: true,
-        message: 'File upload Successfully',
-        data: rec
-    })
- 
+        const fileId = req.file.filename.split('-')[0];
+        const link = 'http://' + req.hostname + ':' + process.env.PORT + '/video/' + fileId
+
+
+        const attributesToBeSaved = {
+            id: fileId,
+            name: req.file.originalname,
+            size: req.file.size,
+            path: req.file.path,
+            encoding: req.file.encoding,
+            details: req.body.details ? req.body.details : '',
+            link: link
+        }
+        
+
+        return res.json({
+            status: true,
+            message:'File upload successfully',
+            data: attributesToBeSaved
+        })
+    });
+
+
+    
 })
 
 

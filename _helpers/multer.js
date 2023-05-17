@@ -1,49 +1,45 @@
-const multer = require("multer");
-const { fileUploadConfig } = require("../_config/file-upload-config-video");
+const multer = require('multer');
+const fs = require('fs');
 
+function fileFilter (req, file, callback) {
+  var errorMessage = '';
+  if (!file || file.mimetype !== 'video/mp4') {
+    errorMessage = 'Wrong file type \"' + file.originalname.split('.').pop() + '\" found. Only mp4 video files are allowed!';
+  }
+  if(errorMessage) {
+    return callback({errorMessage: errorMessage, code: 'LIMIT_FILE_TYPE'}, false);
+  }
+  callback(null, true);
+}
 
+function destinationPath(req, file, callback) {
+  var stat = null;
+  try {
+    stat = fs.statSync(process.env.FILE_UPLOAD_PATH);
+  } catch (err) {
+    fs.mkdirSync(process.env.FILE_UPLOAD_PATH);
+  }
+   callback(null, process.env.FILE_UPLOAD_PATH);
+}
 
-async function uploadFile(req,res,fileinput){
-    var upload = multer(fileUploadConfig).single(fileinput);
-    
-    return upload(req, res, function(uploadError){
-        
-        if(uploadError){
-            var errorMessage;
-            if(uploadError.code === 'LIMIT_FILE_TYPE') {
-                errorMessage = uploadError.errorMessage;
-            } else if(uploadError.code === 'LIMIT_FILE_SIZE'){
-                errorMessage = 'Maximum file size allowed is ' + process.env.FILE_SIZE + 'MB';
-            }
+function fileNameConvention(req, file, callback) {
+  callback(null, Date.now() + '-' + file.originalname.replace(/ /g, '_'));
+}
 
-            return res.json({
-                error: errorMessage
-            });
-        }
-
-        const fileId = req.file.filename.split('-')[0];
-        const link = 'http://' + req.hostname + ':' + process.env.PORT + '/video/' + fileId
-
-        res.json({
-        success: true,
-        link: link
-        });
-
-        const attributesToBeSaved = {
-        id: fileId,
-        name: req.file.originalname,
-        size: req.file.size,
-        path: req.file.path,
-        encoding: req.file.encoding,
-        details: req.body.details ? req.body.details : ''
-        }
-        
-        //handleDb.saveToDB(attributesToBeSaved);
-        return attributesToBeSaved;
-
-    });
-
+const limits = {
+  fileSize: parseInt(process.env.FILE_SIZE) * 1024 * 1024 // 200MB
 }
 
 
-module.exports = { uploadFile };
+const storage = multer.diskStorage({
+  destination: destinationPath,
+  filename: fileNameConvention
+});
+
+const fileUploadConfig = {
+  fileFilter: fileFilter,
+  storage: storage,
+  limits: limits
+};
+
+module.exports = { fileUploadConfig };
