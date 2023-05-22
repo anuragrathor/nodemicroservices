@@ -9,36 +9,33 @@ const router = express.Router();
 router.get('/list', async (req, res) => {
 
     try{
+        
+        const { title } = req.query;
 
-        const data = await Video_video.findAll({
-            where: {
-                ffmpeg_status: {
-                  [Op.or]: {
-                    [Op.lt]: 1,
-                    [Op.eq]: null
-                  }
-                },
-                createdAt: {
-                    [Op.lt]: new Date(),
-                    [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000)
-                },
-                [Op.or]: [
-                    {
-                    title: {
-                        [Op.like]: 'a%'
-                    }
-                    },
-                    {
-                    description: {
-                        [Op.like]: '%a%'
-                    }
-                    }
-                ]  
-              },
+
+        let page = Number(req.query.page) || 1 ;
+        let limit = Number(req.query.limit) || 3 ;
+        let skip = (page - 1) * limit ;
+
+        var condition = {
+            title: {
+                [Op.like]: title+'%'
+            },
+            createdAt: {
+                [Op.lt]: new Date(),
+                [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000)
+            } 
+        };
+
+        const data = await Video_video.findAndCountAll({
+            where: condition,
+            limit: limit,
+            offset: skip,
             //To Print Raw SQL Query   
             logging: (sql, queryObject) => {
                 sendToLogToConsole(sql, queryObject)
             },
+            
         });
 
         return res.json({
@@ -56,9 +53,8 @@ router.get('/list', async (req, res) => {
 
 
     function sendToLogToConsole (sql, queryObject) {  
-        // save the `sql` query in Elasticsearch
-        console.log(sql)
-      
+        console.log(sql);
+       // console.log(queryObject);
         // use the queryObject if needed (e.g. for debugging)
       }
 
