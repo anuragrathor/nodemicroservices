@@ -69,18 +69,24 @@ router.post("/video-upload", async(req, res) => {
         const fileId = req.file.filename.split('-')[0];
         const link = 'http://' + req.hostname + ':' + process.env.PORT + '/video/' + fileId
 
-
+        
         attributesToBeSaved = {
             //id: fileId,
-            // title: req.file.originalname,
-            title: req.file.filename,
-            file_size: req.file.size,
+            // title: req.file.originalname,     
+            slug_folder:'Dummy',
+            slug_smart:'Dummy',
+            slug_user:'Dummy',  
             url: req.file.path,
+            video_extention: video_extention,
+            title: req.file.filename,
+            thumbnail: 'thumbnaildummy',
+            file_size: req.file.size,
             // encoding: req.file.encoding,
             description: req.body.details ? req.body.details : '',
-            video_extention:video_extention,
             // url: link
         }
+
+        
         
     });
 

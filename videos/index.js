@@ -31,6 +31,7 @@ const prefix = '/video';
 //app.use(authenticate);
 
 app.use(prefix, require('./video'));
+app.use(prefix, require('./list'));
 
 
 
