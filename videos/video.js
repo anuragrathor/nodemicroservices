@@ -6,6 +6,7 @@ const Video_video = require("../_models/videos/video_video");
 const fs = require('fs');
 const multer  = require('multer');
 const { fileUploadConfig } = require("../_helpers/multer");
+const { fileInfo } = require("../_helpers/ffmpegvideo");
 
 
 const filePath = 'uploads/test.mp4';
@@ -16,10 +17,13 @@ router.post("/videos", async(req, res) => {
 
     try{
 
+        const rec  = await fileInfo('test.mp4');
+        console.log(rec);
+        
         return res.json({
             status: true,
-            message: 'Success',
-            data: null
+            message: 'Success ddfddf',
+            data: rec
         });
 
 
