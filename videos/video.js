@@ -6,19 +6,37 @@ const Video_video = require("../_models/videos/video_video");
 const fs = require('fs');
 const multer  = require('multer');
 const { fileUploadConfig } = require("../_helpers/multer");
-const { fileInfo } = require("../_helpers/ffmpegvideo");
+const logger = require("../_helpers/winston-logger");
 
 
 const filePath = 'uploads/test.mp4';
 // const filePath = __dirname+"/test.mp4";
 
+router.get("/logger", async(req, res) => {
+
+        logger.log("debug", "Hello, Winston!");
+        logger.debug("The is the home '/' route.");
+        logger.error("Events Error: Unauthenticated user");
+        logger.info('What rolls down stairs');
+        logger.warn('Whats great for a snack,');
+
+        return res.json({
+            status: true,
+            message: 'Success ddfddf',
+            data: null
+        });
+
+    
+})
+
 
 router.post("/videos", async(req, res) => {
 
+        logger.log("debug", "Hello, Winston!");
+        logger.debug("The is the home '/' route.");
+        logger.error("Events Error: Unauthenticated user");
+        
     try{
-
-        const rec  = await fileInfo('test.mp4');
-        console.log(rec);
         
         return res.json({
             status: true,

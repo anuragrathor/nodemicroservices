@@ -4,11 +4,20 @@ const helmet = require("helmet");
 const env = require("../_config/env");
 const db = require("../_db/index");
 const { authenticate } = require("../_middlewares/auth");
+const fs = require('fs')
+const morgan = require('morgan')
+const path = require('path')
 
 
 
 const app = express();
 app.use(helmet());
+
+
+// create a write stream (in append mode)
+var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+app.use(morgan('combined', { stream: accessLogStream }));
+
 
 const PORT = env.port.video;
 
