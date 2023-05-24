@@ -42,6 +42,7 @@ const prefix = '/video';
 app.use(prefix, require('./video'));
 app.use(prefix, require('./list'));
 app.use(prefix, require('./ffmpeg/ffmpeg'));
+app.use(prefix, require('./razorpay'));
 
 
 
