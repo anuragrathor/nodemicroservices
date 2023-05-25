@@ -42,6 +42,9 @@ router.get('/razorpay', async (req, res) => {
 })
 
 
+router.get("/checkoutpage", (req, res) => {
+    res.sendFile(__dirname+"/checkout.html");
+})
 
 router.post('/createOrder', (req, res)=>{
 
