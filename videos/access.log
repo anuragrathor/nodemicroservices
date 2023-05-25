@@ -77,3 +77,6 @@
 ::ffff:127.0.0.1 - - [25/May/2023:04:49:09 +0000] "GET /video/checkoutpage HTTP/1.1" - - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/113.0"
 ::ffff:127.0.0.1 - - [25/May/2023:04:49:09 +0000] "GET /video/checkoutpage HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/113.0"
 ::ffff:127.0.0.1 - - [25/May/2023:04:49:15 +0000] "GET /video/checkoutpage HTTP/1.1" 200 2416 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/113.0"
+::1 - - [25/May/2023:09:56:48 +0000] "POST /video/order HTTP/1.1" 200 60 "-" "PostmanRuntime/7.32.2"
+::1 - - [25/May/2023:09:57:13 +0000] "POST /video/order HTTP/1.1" 200 61 "-" "PostmanRuntime/7.32.2"
+::1 - - [25/May/2023:10:48:40 +0000] "POST /video/order HTTP/1.1" 200 61 "-" "PostmanRuntime/7.32.2"
