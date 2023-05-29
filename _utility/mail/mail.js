@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-const { SMTP_HOST, USER_NAME, PASSWORD } = require("../_config/env");
+const { SMTP_HOST, USER_NAME, PASSWORD } = require("../../_config/env");
 
 async function SendMail(from, to, subject, text, html){
     

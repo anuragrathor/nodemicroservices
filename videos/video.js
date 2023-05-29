@@ -5,8 +5,9 @@ const { Op, and, NUMBER } = require("sequelize");
 const Video_video = require("../_models/videos/video_video");
 const fs = require('fs');
 const multer  = require('multer');
-const { fileUploadConfig } = require("../_helpers/multer");
-const logger = require("../_helpers/winston-logger");
+const { fileUploadConfig } = require("../_utility/file-upload/multer");
+const logger = require("../_utility/logger/winston-logger");
+
 
 
 const filePath = 'uploads/test.mp4';

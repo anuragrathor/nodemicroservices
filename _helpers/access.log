@@ -1,3 +1,0 @@
-::1 - - [24/May/2023:05:13:10 +0000] "GET /video/list?page=1&limit=1&title=nothing&size=5 HTTP/1.1" 200 70 "-" "PostmanRuntime/7.32.2"
-::1 - - [24/May/2023:05:13:14 +0000] "GET /video/list?page=1&limit=1&title=nothing&size=5 HTTP/1.1" 200 70 "-" "PostmanRuntime/7.32.2"
-::1 - - [24/May/2023:05:13:18 +0000] "GET /video/list?page=1&limit=1&title=nothing&size=5 HTTP/1.1" 200 70 "-" "PostmanRuntime/7.32.2"
