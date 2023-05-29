@@ -8,6 +8,7 @@ const multer  = require('multer');
 const { fileUploadConfig } = require("../_utility/file-upload/multer");
 const logger = require("../_utility/logger/winston-logger");
 const { UploadFile } = require("../_utility/file-upload/FileUploadUtility");
+const { localize } = require("../_utility/localization/i18n");
 
 
 
@@ -70,13 +71,15 @@ router.get("/", (req, res) => {
 //Upload Video using Multer
 router.post("/video-upload", async(req, res) => {
 
-    var ses = await UploadFile(req, res);
+    const ar = await localize();
+    console.log(ar);
+    // var ses = await UploadFile(req, res);
     
-    return res.json({
-        status: true,
-        message:'successfully uplaoded',
-        data: null
-    })
+    // return res.json({
+    //     status: true,
+    //     message:'successfully uplaoded',
+    //     data: null
+    // })
 
     const attributesToBeSaved = {};
     var upload = multer(fileUploadConfig).single('user-file');

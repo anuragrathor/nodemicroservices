@@ -17,6 +17,7 @@
     "ffmpeg-static": "^5.1.0",
     "fluent-ffmpeg": "^2.1.2",
     "helmet": "^7.0.0",
+    "i18n": "^0.15.1",
     "joi": "^17.9.2",
     "jsonwebtoken": "^9.0.0",
     "morgan": "^1.10.0",
