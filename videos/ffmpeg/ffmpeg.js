@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const ffmpegStatic = require('ffmpeg-static');
 const ffmpeg = require('fluent-ffmpeg');
+const { fileInfo } = require("../../_utility/ffmpeg/ffmpegvideo");
 
 // Tell fluent-ffmpeg where it can find FFmpeg
 ffmpeg.setFfmpegPath(ffmpegStatic);
@@ -9,21 +10,28 @@ ffmpeg.setFfmpegPath(ffmpegStatic);
 //Get File Info (it contain all info File name , size, duration etc)
 router.get('/ffmpeg/fileinfo', async (req, res )=> {
 
-  const filePath = 'uploads/test.mp4';
+  const a = await fileInfo(req, res, 'test.mp4');
+  console.log(a);
+  res.json({
+                status: true,
+                message: 'Data Fetched',
+                data: a
+            })
+  // const filePath = 'uploads/test.mp4';
   
-  ffmpeg.ffprobe(filePath, function (err, metadata) {
-    if (err) {
-      console.log("MetaData not Found. " + err);
-    } else {
-      console.log("MetaData Found."+metadata);
+  // ffmpeg.ffprobe(filePath, function (err, metadata) {
+  //   if (err) {
+  //     console.log("MetaData not Found. " + err);
+  //   } else {
+  //     console.log("MetaData Found."+metadata);
   
-      return res.json({
-        status: true,
-        message: 'Data Fetched',
-        data: metadata
-      })
-    }
-  });
+  //     return res.json({
+  //       status: true,
+  //       message: 'Data Fetched',
+  //       data: metadata
+  //     })
+  //   }
+  // });
   
 })
 

@@ -5,7 +5,13 @@ const ffmpeg = require('fluent-ffmpeg');
 ffmpeg.setFfmpegPath(ffmpegStatic);
 
 
-async function fileInfo(file){
+async function fileInfo(req, res, file){
+
+    // return res.json({
+    //     status: true,
+    //     message: 'Data Fetched',
+    //     data: file
+    // })
 
     const filePath = 'uploads/'+file; //'uploads/test.mp4';
   
@@ -15,13 +21,17 @@ async function fileInfo(file){
             } else {
             console.log("MetaData Found."+metadata);
     
-            return res.json({
-                status: true,
-                message: 'Data Fetched',
-                data: metadata
-            })
+            return metadata; 
+            // res.json({
+            //     status: true,
+            //     message: 'Data Fetched',
+            //     data: metadata
+            // })
         }
     });
+
+
+    return 'ajdk';
 }
 
 
