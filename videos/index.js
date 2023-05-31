@@ -6,17 +6,33 @@ const db = require("../_db/index");
 const { authenticate } = require("../_middlewares/auth");
 const fs = require('fs')
 const morgan = require('morgan')
-const path = require('path')
-
+const path = require('path');
+const logger = require("../_utility/logger/winston-logger");
+const morgan_var = require("../_utility/logger/morgan-logger");
+const i18n = require("../_utility/localization/i18n");
 
 
 const app = express();
 app.use(helmet());
 
 
-// create a write stream (in append mode)
-var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
-app.use(morgan('combined', { stream: accessLogStream }));
+// Morgan Log
+app.use(morgan_var);
+
+
+//Winston Logger 
+//logger.error("Events Error: Unauthenticated user from index file");
+
+
+
+//Set Localization for Languages  set app.use how
+// i18n init parses req for language headers, cookies, etc.
+app.use(i18n.init);
+//i18n.setLocale('hindi');
+ console.log(i18n.getLocales()); // ['en', 'uk']
+ console.log(i18n.getLocale()); // 'en'
+ console.log(i18n.__('successfulSignUp')); // 'Hello'
+// console.log(i18n.__n('You have %s message', 5)); // 'You have 5 messages'
 
 
 const PORT = env.port.video;

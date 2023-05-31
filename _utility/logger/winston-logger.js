@@ -14,7 +14,7 @@ const logConfigurationFile = {
       new winston.transports.File({
           level: 'error',
           // Create the log directory if it does not exist
-          filename: 'logs/example.log'
+          filename: 'logs/winston-logger.log'
       })
   ]
 };

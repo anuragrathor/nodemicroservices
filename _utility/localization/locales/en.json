@@ -1,6 +1,10 @@
 {
 	"successfulSignUp": "Account created successful, please verify your email!",
 	"successfulLogin": "User logged in successfuly.",
+	"You have %s message": {
+		"one": "You have %s message",
+		"other": "You have %s messages"
+	 },
 	"Hello World": "Hello World",
 	"Empty": "",
 	"Hello": "Hello",

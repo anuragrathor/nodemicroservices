@@ -1,19 +1,24 @@
 {
 	"successfulSignUp": "प्रोफाइल पेज पर आपका स्वागत है।",
-    "successfulLogin": "प्रमाणपत्र पृष्ठ पर आपका स्वागत है।",
+	"successfulLogin": "प्रमाणपत्र पृष्ठ पर आपका स्वागत है।",
 	"header": {
-        "profile": "प्रोफ़ाइल",
-        "blog": "ब्लॉग",
-        "certificate": "प्रमाणपत्र",
-        "language": "भाषा"
-    },
-    "profile": {
-        "welcome_title": "प्रोफाइल पेज पर आपका स्वागत है।"
-    },
-    "blog": {
-        "welcome_title": "ब्लॉग पेज पर आपका स्वागत है।"
-    },
-    "certificate": {
-        "welcome_title": "प्रमाणपत्र पृष्ठ पर आपका स्वागत है।"
-    }
+		"profile": "प्रोफ़ाइल",
+		"blog": "ब्लॉग",
+		"certificate": "प्रमाणपत्र",
+		"language": "भाषा"
+	},
+	"profile": {
+		"welcome_title": "प्रोफाइल पेज पर आपका स्वागत है।"
+	},
+	"blog": {
+		"welcome_title": "ब्लॉग पेज पर आपका स्वागत है।"
+	},
+	"certificate": {
+		"welcome_title": "प्रमाणपत्र पृष्ठ पर आपका स्वागत है।"
+	},
+	"Hello": "Hello",
+	"You have %s message": {
+		"one": "You have %s message",
+		"other": "You have %s message"
+	}
 }

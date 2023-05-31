@@ -6,38 +6,18 @@ const Video_video = require("../_models/videos/video_video");
 const fs = require('fs');
 const multer  = require('multer');
 const { fileUploadConfig } = require("../_utility/file-upload/multer");
-const logger = require("../_utility/logger/winston-logger");
 const { UploadFile } = require("../_utility/file-upload/FileUploadUtility");
 const { localize } = require("../_utility/localization/i18n");
+const video_video_visitor = require("../_models/videos/video_video_visitor");
 
 
 
 const filePath = 'uploads/test.mp4';
 // const filePath = __dirname+"/test.mp4";
 
-router.get("/logger", async(req, res) => {
-
-        logger.log("debug", "Hello, Winston!");
-        logger.debug("The is the home '/' route.");
-        logger.error("Events Error: Unauthenticated user");
-        logger.info('What rolls down stairs');
-        logger.warn('Whats great for a snack,');
-
-        return res.json({
-            status: true,
-            message: 'Success ddfddf',
-            data: null
-        });
-
-    
-})
 
 
 router.post("/videos", async(req, res) => {
-
-        logger.log("debug", "Hello, Winston!");
-        logger.debug("The is the home '/' route.");
-        logger.error("Events Error: Unauthenticated user");
         
     try{
         
@@ -71,15 +51,14 @@ router.get("/", (req, res) => {
 //Upload Video using Multer
 router.post("/video-upload", async(req, res) => {
 
-    const ar = await localize();
-    console.log(ar);
+
     // var ses = await UploadFile(req, res);
     
-    // return res.json({
-    //     status: true,
-    //     message:'successfully uplaoded',
-    //     data: null
-    // })
+    return res.json({
+        status: true,
+        message:'successfully uplaoded',
+        data: res.__('successfulSignUp')   //To print in language which user need
+    })
 
     const attributesToBeSaved = {};
     var upload = multer(fileUploadConfig).single('user-file');
