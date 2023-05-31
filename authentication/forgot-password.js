@@ -3,7 +3,7 @@ const router = express.Router();
 const Joi  = require("joi");
 const User = require("../_models/user");
 const { EMAIL_FROM } = require("../_config/env");
-const { emailLayout, SendMail } = require("../_helpers/mail");
+const { emailLayout, SendMail } = require("../_utility/mail/mail");
 
 router.post("/forgot-password", async(req, res) => {
 

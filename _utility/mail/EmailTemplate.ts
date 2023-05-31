@@ -1,4 +1,4 @@
-export const SendMail = async (emailFrom: string, downloadLink: string, size: number, expires: number) => {
+const registrationMailTemplate = async (emailFrom, downloadLink, size, expires) => {
     return `
         <!doctype html>
             <html>
@@ -170,3 +170,6 @@ export const SendMail = async (emailFrom: string, downloadLink: string, size: nu
         </html>
     `;
 }
+
+
+module.exports = registrationMailTemplate;
