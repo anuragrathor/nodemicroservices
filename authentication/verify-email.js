@@ -3,24 +3,33 @@ const router = express.Router();
 const Joi  = require("joi");
 const User = require("../_models/user");
 
-router.post("/verify-email", async(req, res) => {
+router.get("/verify-email", async(req, res) => {
 
     try{
-        const { email } = req.body;
+        const email = req.query.email;
 
         const rec = await User.findOne({where : { email: email }});
 
         if(rec){
-            await User.update({ status: 1 },
-                { where : {
-                    email: rec.email
-                }})
-
-            return res.json({
-                status: true,
-                message: 'User Activated Successfully',
-                data: rec
-            })    
+            if(rec.status != 1){
+                await User.update({ status: 1 },
+                    { where : {
+                        email: rec.email
+                    }})
+    
+                return res.json({
+                    status: true,
+                    message: 'User Activated Successfully',
+                    data: rec
+                })
+            }else{
+                return res.json({
+                    status: true,
+                    message: 'User Already Activated',
+                    data: rec
+                })
+            }
+              
                 
         }else{
             return res.json({
@@ -38,7 +47,6 @@ router.post("/verify-email", async(req, res) => {
         })
     }
 
-    return res.json({message : 'Verify Email successfully'});
 })
 
 

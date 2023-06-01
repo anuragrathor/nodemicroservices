@@ -3,6 +3,7 @@ const router = express.Router();
 const Joi  = require("joi");
 const User = require("../_models/user");
 const {SendMail, emailLayout} = require("../_utility/mail/mail");
+const {registrationMailTemplate} = require("../_utility/mail/mail-template/registration-Template");
 const { EMAIL_FROM,origin } = require("../_config/env");
 const { GeneratePassword, GenerateSalt } = require("../_helpers/bcrypt");
 
@@ -69,9 +70,8 @@ router.post("/register", async(req, res) => {
             //send Mail for new Signup with confirm new signup 
           
             let content = "<h3>  Your Account  Successfully Verified...! </h3>";
-            const link = `${origin}/auth/profile/${user.email}`;
-            
-            let html = await emailLayout(user.email, content, link);
+            const link = `${origin}/auth/verify-email?email=${user.email}`;     //Change port later
+            let html = await registrationMailTemplate(user.email, content, link);
             const sendMail = await SendMail(EMAIL_FROM, email, 'Job', `${EMAIL_FROM} Shared a file with you`, html);
             
             return res.json({
