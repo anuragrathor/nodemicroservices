@@ -8,6 +8,21 @@ const { authenticate } = require("../_middlewares/auth");
 
 
 const app = express();
+
+//For only google auth
+app.set('view engine', 'ejs');
+
+// app.get('/', (req, res) => {
+//     res.render('index');
+// })
+
+// app.get('/login', (req, res) => {
+//     res.render('login');
+// })
+
+//For only google auth
+
+
 app.use(helmet());
 
 const PORT = env.port.authentication;
