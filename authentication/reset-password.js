@@ -4,12 +4,15 @@ const Joi  = require("joi");
 const User = require("../_models/user");
 const { GenerateSalt, GeneratePassword } = require("../_helpers/bcrypt");
 
-router.post("/reset-password/:id", async(req, res) => {
+
+//Reset Password using Mail
+router.post("/reset-password", async(req, res) => {
     
     try{
-        const { password, password_confirmation } = req.body;
+        const { email, password, password_confirmation } = req.body;
 
         const schema = Joi.object({
+            email: Joi.string(),
             password: Joi.string()
             .pattern(new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})"))
             .required()
@@ -33,8 +36,8 @@ router.post("/reset-password/:id", async(req, res) => {
 
         //Find record using userid email
         const rec = await User.findOne({ where : 
-            { 
-                id : req.params.id 
+            {
+                email : email 
             }
         });
 
@@ -43,7 +46,14 @@ router.post("/reset-password/:id", async(req, res) => {
             const salt = await GenerateSalt();
             const hashPass = await GeneratePassword(password , salt);
 
-            await User.update({ password : hashPass }, { where : { id: req.params.id }});
+            // Change Password for Recovery
+            await User.update({ password: hashPass }, 
+                {
+                where: {
+                email: rec.email
+                }
+            }
+            );
             
             return res.json({
                 status: true,
@@ -66,9 +76,6 @@ router.post("/reset-password/:id", async(req, res) => {
         })
     }
     
-    
-    
-    return res.json({message : 'reset-password successfully'});
 })
 
 

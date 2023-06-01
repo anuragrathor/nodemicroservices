@@ -5,10 +5,10 @@ const User = require("../_models/user");
 const { GenerateSalt } = require("../_helpers/bcrypt");
 const { GeneratePassword } = require("../_helpers/bcrypt");
 
+//Change Password from inside User Panel
 router.post("/change-password", async(req, res) => {
 
     try{
-
         const { email, password } = req.body;
         
         const schema = Joi.object({

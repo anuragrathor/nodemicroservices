@@ -3,6 +3,7 @@ const router = express.Router();
 const Joi  = require("joi");
 const User = require("../_models/user");
 
+//Make Status 1 to Verify Email on First Time
 router.get("/verify-email", async(req, res) => {
 
     try{
