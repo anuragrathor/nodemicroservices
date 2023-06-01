@@ -6,6 +6,7 @@ const {SendMail, emailLayout} = require("../_utility/mail/mail");
 const {registrationMailTemplate} = require("../_utility/mail/mail-template/registration-Template");
 const { EMAIL_FROM,origin } = require("../_config/env");
 const { GeneratePassword, GenerateSalt } = require("../_helpers/bcrypt");
+const { GenerateOtp, onRequestOTP } = require("../_utility/OtpUtility");
 
 
 router.post("/register", async(req, res) => {
@@ -22,6 +23,8 @@ router.post("/register", async(req, res) => {
             .required(),
 
             repeat_password: Joi.ref('password'),
+            
+            mobile: Joi.string(),
 
             email: Joi.string()
             .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'live'] } })
@@ -38,7 +41,7 @@ router.post("/register", async(req, res) => {
         }
 
 
-        const {username, email, password } = req.body;
+        const {username, email, mobile, password } = req.body;
 
         //Generate the Salt
         const salt = await GenerateSalt();
@@ -46,11 +49,16 @@ router.post("/register", async(req, res) => {
         //Encrypt the Password Using the Salt : Use Bcrypt Library
         const hashPassword = await GeneratePassword(password, salt);
 
-
+        //Generate Otp   expiry not save some problem
+        const {otp, expiry} = await GenerateOtp();
+        
         const data = {
             'username' : username,
             'email' : email,
-            'password' : hashPassword
+            'password' : hashPassword,
+            'mobile' : mobile,
+            'otp_number' : otp,
+            'otp_exp_time' : expiry
         }
 
         const rec = await User.findOne({ where: {email: email} });
@@ -67,8 +75,12 @@ router.post("/register", async(req, res) => {
 
         if(user){
 
+
+            // Send the OTP to customer
+            await onRequestOTP(otp, mobile)
+
+
             //send Mail for new Signup with confirm new signup 
-          
             let content = "<h3>  Your Account  Successfully Verified...! </h3>";
             const link = `${origin}/auth/verify-email?email=${user.email}`;     //Change port later
             let html = await registrationMailTemplate(user.email, content, link);
