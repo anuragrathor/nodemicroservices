@@ -40,7 +40,7 @@ const User = db.sequelize.define('User', {
     type: DataTypes.STRING(255)
   },
   otp_exp_time: {
-    type: DataTypes.BIGINT
+    type: DataTypes.STRING(255)
   },
   type: {
     type: DataTypes.INTEGER(11),

@@ -51,16 +51,15 @@ router.post("/register", async(req, res) => {
 
         //Generate Otp   expiry not save some problem
         const {otp, expiry} = await GenerateOtp();
-        
+        // console.log('otp',otp,expiry)
         const data = {
             'username' : username,
             'email' : email,
             'password' : hashPassword,
             'mobile' : mobile,
             'otp_number' : otp,
-            'otp_exp_time' : expiry
+            'otp_exp_time' : expiry.toTimeString()
         }
-
         const rec = await User.findOne({ where: {email: email} });
         
         if(rec){
@@ -92,8 +91,6 @@ router.post("/register", async(req, res) => {
                 data: null
             });
         }
-
-        
 
     }catch(err){
         return res.json({
