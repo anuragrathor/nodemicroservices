@@ -7,10 +7,9 @@ const { authenticate } = require("../_middlewares/auth");
 const fs = require('fs')
 const morgan = require('morgan')
 const path = require('path');
-const logger = require("../_utility/logger/winston-logger");
 const morgan_var = require("../_utility/logger/morgan-logger");
 const i18n = require("../_utility/localization/i18n");
-
+const logWinston = require("../_middlewares/logWinston");
 
 const app = express();
 app.use(helmet());
@@ -19,9 +18,9 @@ app.use(helmet());
 // Morgan Log
 app.use(morgan_var);
 
+//Winston Logger
+app.use(logWinston.request);
 
-//Winston Logger 
-//logger.error("Events Error: Unauthenticated user from index file");
 
 
 

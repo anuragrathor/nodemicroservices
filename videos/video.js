@@ -9,6 +9,7 @@ const { fileUploadConfig } = require("../_utility/file-upload/multer");
 const { UploadFile } = require("../_utility/file-upload/FileUploadUtility");
 const { localize } = require("../_utility/localization/i18n");
 const video_video_visitor = require("../_models/videos/video_video_visitor");
+const { default: ErrorHandler } = require("../_utility/ErrorHandler/errorHandler");
 
 
 
@@ -43,13 +44,21 @@ router.post("/videos", async(req, res) => {
 
 
 
-router.get("/", (req, res) => {
+router.get("/", (req, res, next) => {
     res.sendFile(__dirname+"/index.html");
 })
 
 
 //Upload Video using Multer
-router.post("/video-upload", async(req, res) => {
+router.post("/video-upload", async(req, res, next) => {
+
+
+    // const userExist = true;
+    // if(userExist){
+    //     return next(new ErrorHandler("User created aldddd", 400));
+    // }
+
+
 
 
     // var ses = await UploadFile(req, res);

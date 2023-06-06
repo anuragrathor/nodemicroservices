@@ -55,3 +55,13 @@
 ::1 - - [05/Jun/2023:06:15:18 +0000] "GET /video/ffmpeg/fileinfo HTTP/1.1" 200 15 "-" "PostmanRuntime/7.32.2"
 ::1 - - [05/Jun/2023:06:16:02 +0000] "GET /video/ffmpeg/fileinfo HTTP/1.1" 200 15 "-" "PostmanRuntime/7.32.2"
 ::1 - - [05/Jun/2023:06:16:37 +0000] "GET /video/ffmpeg/fileinfo HTTP/1.1" 200 40 "-" "PostmanRuntime/7.32.2"
+::1 - - [06/Jun/2023:06:59:56 +0000] "POST /video/video-upload HTTP/1.1" 200 112 "-" "PostmanRuntime/7.32.2"
+::1 - - [06/Jun/2023:07:03:37 +0000] "POST /video/video-upload HTTP/1.1" 200 112 "-" "PostmanRuntime/7.32.2"
+::1 - - [06/Jun/2023:07:27:21 +0000] "POST /video/video-upload HTTP/1.1" 200 112 "-" "PostmanRuntime/7.32.2"
+::1 - - [06/Jun/2023:07:28:02 +0000] "POST /video/video-upload HTTP/1.1" 200 112 "-" "PostmanRuntime/7.32.2"
+::1 - - [06/Jun/2023:08:01:14 +0000] "POST /video/video-upload HTTP/1.1" 200 112 "-" "PostmanRuntime/7.32.2"
+::1 - - [06/Jun/2023:08:01:43 +0000] "POST /video/video-upload HTTP/1.1" 200 112
+[0mPOST /video/video-upload [32m200[0m 13.564 ms - 112[0m
+::1 - POST /video/video-upload HTTP/1.1 200 112 - 13.912 ms
+POST /video/video-upload 200 112 - 13.243 ms
+::1 - - [06/Jun/2023:08:04:00 +0000] "POST /video/video-upload HTTP/1.1" 200 112 "-" "PostmanRuntime/7.32.2"
