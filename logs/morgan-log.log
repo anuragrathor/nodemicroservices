@@ -68,3 +68,5 @@ POST /video/video-upload 200 112 - 13.243 ms
 combined /video/video-upload 200 1.1 13.320 
 POST /video/video-upload 200 1.1 13.463 
 GET /video/list?page=1&limit=1&title=nothing&size=5 200 1.1 29.935 
+GET /video/list?page=1&limit=1&title=nothing&size=5 200 1.1 70 43.231 ms
+GET /video/list?page=1&limit=1&title=nothing&size=5 200 1.1 70 33.565 ms
