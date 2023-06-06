@@ -22,8 +22,6 @@ app.use(morgan_var);
 app.use(logWinston.request);
 
 
-
-
 //Set Localization for Languages  set app.use how
 // i18n init parses req for language headers, cookies, etc.
 app.use(i18n.init);

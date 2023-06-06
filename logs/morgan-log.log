@@ -65,3 +65,6 @@
 ::1 - POST /video/video-upload HTTP/1.1 200 112 - 13.912 ms
 POST /video/video-upload 200 112 - 13.243 ms
 ::1 - - [06/Jun/2023:08:04:00 +0000] "POST /video/video-upload HTTP/1.1" 200 112 "-" "PostmanRuntime/7.32.2"
+combined /video/video-upload 200 1.1 13.320 
+POST /video/video-upload 200 1.1 13.463 
+GET /video/list?page=1&limit=1&title=nothing&size=5 200 1.1 29.935 

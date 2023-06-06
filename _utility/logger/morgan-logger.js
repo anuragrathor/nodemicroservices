@@ -15,7 +15,9 @@ const path = require('path');
 // var accessLogStream = fs.createWriteStream(path.join(__dirname, 'morgan-log.log'), { flags: 'a' })  //Create file in same directory
 var accessLogStream = fs.createWriteStream(path.join('logs/morgan-log.log'), { flags: 'a' })
 
-const morgan_var = morgan('combined', { stream: accessLogStream })
+const morgan_var = morgan(':method :url :status :http-version :response-time ', { stream: accessLogStream })
+
+//const morgan_var = morgan('combined', { stream: accessLogStream })
 // const morgan_var = morgan('tiny', { stream: accessLogStream })
 // const morgan_var = morgan('short', { stream: accessLogStream })  // It also log API execution time 
 // const morgan_var = morgan('dev', { stream: accessLogStream })    // It log API execution time 
