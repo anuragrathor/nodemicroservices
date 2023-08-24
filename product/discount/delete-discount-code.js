@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 const Joi  = require("joi");
 const { Op, and, NUMBER } = require("sequelize");
-const Product = require("../../_models/products/product");
-const { default: ErrorHandler } = require("../../_utility/ErrorHandler/errorHandler");
 
 
 router.get("/discount", (req, res) => {
