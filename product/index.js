@@ -32,6 +32,7 @@ const prefix = '/product';
 
 //app.use(authenticate);
 
+
 //Product Routes
 app.use(prefix, require('./add-product'));
 app.use(prefix, require('./delete-product'))
