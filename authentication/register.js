@@ -50,15 +50,15 @@ router.post("/register", async(req, res) => {
         const hashPassword = await GeneratePassword(password, salt);
 
         //Generate Otp   expiry not save some problem
-        const {otp, expiry} = await GenerateOtp();
+        //const {otp, expiry} = await GenerateOtp();
         // console.log('otp',otp,expiry)
         const data = {
             'username' : username,
             'email' : email,
             'password' : hashPassword,
             'mobile' : mobile,
-            'otp_number' : otp,
-            'otp_exp_time' : expiry.toTimeString()
+            //'otp_number' : otp,
+            //'otp_exp_time' : expiry.toTimeString()
         }
         const rec = await User.findOne({ where: {email: email} });
         
@@ -76,14 +76,14 @@ router.post("/register", async(req, res) => {
 
 
             // Send the OTP to customer
-            await onRequestOTP(otp, mobile)
+            // await onRequestOTP(otp, mobile)
 
 
-            //send Mail for new Signup with confirm new signup 
-            let content = "<h3>  Your Account  Successfully Verified...! </h3>";
-            const link = `${origin}/auth/verify-email?email=${user.email}`;     //Change port later
-            let html = await registrationMailTemplate(user.email, content, link);
-            const sendMail = await SendMail(EMAIL_FROM, email, 'Job', `${EMAIL_FROM} Shared a file with you`, html);
+            // //send Mail for new Signup with confirm new signup 
+            // let content = "<h3>  Your Account  Successfully Verified...! </h3>";
+            // const link = `${origin}/auth/verify-email?email=${user.email}`;     //Change port later
+            // let html = await registrationMailTemplate(user.email, content, link);
+            // const sendMail = await SendMail(EMAIL_FROM, email, 'Job', `${EMAIL_FROM} Shared a file with you`, html);
             
             return res.json({
                 status: true,
@@ -96,6 +96,7 @@ router.post("/register", async(req, res) => {
         return res.json({
             status: false,
             message: 'Please fill the fields required'+err.message,
+            errordetail: err,
             data: null
         });
     }

@@ -37,10 +37,12 @@ const User = db.sequelize.define('User', {
     type: DataTypes.STRING(255)
   },
   otp_number: {
-    type: DataTypes.STRING(255)
+    type: DataTypes.STRING(255),
+    defaultValue: 0
   },
   otp_exp_time: {
-    type: DataTypes.STRING(255)
+    type: DataTypes.STRING(255),
+    defaultValue: 0
   },
   type: {
     type: DataTypes.INTEGER(11),
@@ -53,22 +55,27 @@ const User = db.sequelize.define('User', {
     type: DataTypes.STRING(255)
   },
   status: {
-    type: DataTypes.INTEGER(11)
+    type: DataTypes.INTEGER(11),
+    defaultValue:'1'
   },
   avatar: {
-    type: DataTypes.STRING(255)
+    type: DataTypes.STRING(255),
+    defaultValue:'dotcompal'
   },
   send_otp: {
     type: DataTypes.INTEGER(11)
   },
   admin_status: {
-    type: DataTypes.INTEGER(11)
+    type: DataTypes.INTEGER(11),
+    defaultValue:'1'
   },
   current_solution_id: {
-    type: DataTypes.INTEGER(11)
+    type: DataTypes.INTEGER(11),
+    defaultValue:'2'
   },
   current_solution_name: {
-    type: DataTypes.STRING(255)
+    type: DataTypes.STRING(255),
+    defaultValue:'dotcompal'
   }
 }, {
 
