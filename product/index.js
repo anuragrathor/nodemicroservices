@@ -72,7 +72,7 @@ app.use(prefix, require('./order/order-cancle'));
 app.use(prefix, require('./discount/cancel-discount-code'));
 app.use(prefix, require('./discount/delete-discount-code'));
 app.use(prefix, require('./discount/generate-discount-code'));
-app.use(prefix, require('./discount/get-all-discount-codes'));
+app.use(prefix, require('./discount/get-all-discount-code'));
 app.use(prefix, require('./discount/get-discount'));
 app.use(prefix, require('./discount/verify-discount-code'));
 

@@ -6,7 +6,7 @@ const Product = require("../_models/products/product");
 const { default: ErrorHandler } = require("../_utility/ErrorHandler/errorHandler");
 
 
-router.get("/list", (req, res) => {
+router.get("/top-cheap", (req, res) => {
     try{
         return res.json({
             status: true,

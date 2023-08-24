@@ -7,7 +7,7 @@ const { default: ErrorHandler } = require("../_utility/ErrorHandler/errorHandler
 
 
 
-router.post("/", async(req, res) => {
+router.post("/add-product", async(req, res) => {
         
     try{
         

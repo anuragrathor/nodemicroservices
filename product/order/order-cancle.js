@@ -4,7 +4,7 @@ const Joi  = require("joi");
 const { Op, and, NUMBER } = require("sequelize");
 
 
-router.get("/discount", (req, res) => {
+router.get("/cancel-order", (req, res) => {
     try{
         return res.json({
             status: true,
