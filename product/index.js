@@ -63,10 +63,10 @@ app.use(prefix, require('./cart/get-cart'));
 
 //Order Routes
 app.use(prefix, require('./order/order-status'));
-app.use(prefix, require('./order/order-create'));
-app.use(prefix, require('./order/order-get'));
-app.use(prefix, require('./order/order-get-all'));
-app.use(prefix, require('./order/order-cancle'));
+app.use(prefix, require('./order/create-order'));
+app.use(prefix, require('./order/get-order'));
+app.use(prefix, require('./order/get-all-order'));
+app.use(prefix, require('./order/cancle-order'));
 
 
 //Discount Routes
