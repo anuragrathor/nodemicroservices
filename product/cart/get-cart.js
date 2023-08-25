@@ -1,22 +1,38 @@
 const express = require("express");
 const router = express.Router();
 const Joi  = require("joi");
-const { Op, and, NUMBER } = require("sequelize");
+const Cart = require("../../_models/products/cart");
 
 
-router.get("/cart-list", (req, res) => {
+router.get("/cart-list", async (req, res) => {
     try{
-        return res.json({
-            status: true,
-            message: 'Success ddfddf',
-            data: rec
-        });
 
+        const { cartId } = req.body;
+
+        const rec = await Cart.findOne({
+            where: {
+                id : cartId
+            }
+        })
+
+        if(rec){
+            return res.json({
+                status: true,
+                message: 'Cart List Fetched successfully',
+                data: rec
+            });
+        }else{
+            return res.json({
+                status: false,
+                message: 'Something error Found',
+                data: null
+            });
+        }
 
     }catch(err){
         return res.json({
             status: false,
-            message: 'Something error found',
+            message: 'Something error found'+err.message,
             data: null
         });
     }

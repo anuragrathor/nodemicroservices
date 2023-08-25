@@ -1,22 +1,37 @@
 const express = require("express");
 const router = express.Router();
 const Joi  = require("joi");
-const { Op, and, NUMBER } = require("sequelize");
+const Cart = require("../../_models/products/cart");
 
 
-router.get("/checkout", (req, res) => {
+router.post("/delete-cart/:id", async (req, res) => {
+
     try{
-        return res.json({
-            status: true,
-            message: 'Success ddfddf',
-            data: rec
-        });
+        const cartId = req.params.id;
 
+        const rec = await Cart.destroy({
+            where: {
+                id: cartId
+            }
+        })
 
+        if(rec){
+            res.json({
+                status: true,
+                message: 'Cart Items deleted Successfully',
+                data: rec
+            })
+        }else{
+            return res.json({
+                status: false,
+                message: 'Something error found',
+                data: null
+            });
+        }
     }catch(err){
         return res.json({
             status: false,
-            message: 'Something error found',
+            message: 'Something error found'+err.message,
             data: null
         });
     }

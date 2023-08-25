@@ -6,12 +6,12 @@ const Product = require("../_models/products/product");
 const { default: ErrorHandler } = require("../_utility/ErrorHandler/errorHandler");
 
 
-router.get("/update-product", async (req, res) => {
-   
+router.post("/update-product", async (req, res) => { 
+    
     try{
 
-        const productId = req.query.productId;
-
+        const { productId, name, price, size } = req.body;
+        
         if(!productId){
             res.json({
                 status: false,
@@ -20,9 +20,10 @@ router.get("/update-product", async (req, res) => {
             })
         }
 
-
         const data = {
-            'name' : 'Aryan'
+            'name': name,
+            'price': price,
+            'size': size
         }
 
         const rec = await Product.update(data, {
@@ -47,11 +48,6 @@ router.get("/update-product", async (req, res) => {
             });
         }
         
-
-
-        
-
-
     }catch(err){
         return res.json({
             status: false,
