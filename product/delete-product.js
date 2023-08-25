@@ -7,20 +7,24 @@ const { default: ErrorHandler } = require("../_utility/ErrorHandler/errorHandler
 
 
 
-router.post("/delete-product", async (req, res) => {
+router.delete("/delete-product/:id", async (req, res) => {
         
     try{
-        const productId = req.query.productId;
+        const productId = req.params.id;
 
-        if(!productId){
+        const product = await Product.findByPk(productId);
+    
+        if(!product){
             return res.json({
                 status: false,
-                message: 'Product not seletect . First Select Product to Delete it',
+                message: 'Product not found',
                 data: null
             })
         }
 
-
+        
+        //This will also work
+        //const rec = product.destroy();
         const rec = await Product.destroy({
             where: { 
                 id: productId 

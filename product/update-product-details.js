@@ -3,19 +3,22 @@ const router = express.Router();
 const Joi  = require("joi");
 const { Op, and, NUMBER } = require("sequelize");
 const Product = require("../_models/products/product");
-const { default: ErrorHandler } = require("../_utility/ErrorHandler/errorHandler");
 
 
-router.post("/update-product", async (req, res) => { 
+router.put("/update-product/:id", async (req, res) => { 
     
     try{
 
-        const { productId, name, price, size } = req.body;
+        const productId = req.params.id;
+        //const updatedData = req.body;
+        const { name, price, size } = req.body;
+
+        const product = await Product.findByPk(productId);
         
-        if(!productId){
+        if(!product){
             res.json({
                 status: false,
-                message: 'Product ID not selected . First select it after you can Update Product Detail',
+                message: 'Product not found',
                 data: null
             })
         }
@@ -25,6 +28,9 @@ router.post("/update-product", async (req, res) => {
             'price': price,
             'size': size
         }
+
+        // Update the product's data alternate Method
+        //await product.update(updatedData);
 
         const rec = await Product.update(data, {
             where: 

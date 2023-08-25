@@ -12,11 +12,14 @@ router.get("/get-all-product", async (req, res) => {
         let page = Number(req.query.page) || 1 ;
         let limit = Number(req.query.limit) || 3 ;
         let skip = (page - 1) * limit ;
+        const sortField = req.query.sortField || 'name';
+        const sortOrder = req.query.sortOrder || 'asc';   
+        const searchQuery = req.query.search || '';
 
         var condition = {
-            // title: {
-            //     [Op.like]: title+'%'
-            // },
+            name: {
+                [Op.like]: `%${searchQuery}%`
+            },
             createdAt: {
                 [Op.lt]: new Date(),
                 [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000)
@@ -24,10 +27,12 @@ router.get("/get-all-product", async (req, res) => {
         };
 
 
+
         const rec = await Product.findAndCountAll({
             where: condition,
             limit: limit,
             offset: skip,
+            order: [[sortField, sortOrder]],
             //To Print Raw SQL Query   
             logging: (sql, queryObject) => {
                 sendToLogToConsole(sql, queryObject)
