@@ -6,19 +6,27 @@ const Product = require("../_models/products/product");
 const { default: ErrorHandler } = require("../_utility/ErrorHandler/errorHandler");
 
 
-router.get("/get-all-product", (req, res) => {
+router.get("/get-all-product", async (req, res) => {
     try{
-        return res.json({
-            status: true,
-            message: 'Success ddfddf',
-            data: rec
-        });
+        const rec = await Product.findAll();
 
-
+        if(rec){
+            return res.json({
+                status: true,
+                message: 'Product List',
+                data: rec
+            })
+        }else{
+            return res.json({
+                status: false,
+                message: 'Something error found',
+                data: null
+            })
+        }
     }catch(err){
         return res.json({
             status: false,
-            message: 'Something error found',
+            message: 'Something error found'+err.message,
             data: null
         });
     }

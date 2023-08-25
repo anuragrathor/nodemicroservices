@@ -7,21 +7,35 @@ const { default: ErrorHandler } = require("../_utility/ErrorHandler/errorHandler
 
 
 
-router.post("/delete-product", async(req, res) => {
+router.post("/delete-product", async (req, res) => {
         
     try{
+        const productId = req.query.productId;
+
+        const rec = await Product.destroy({
+            where: { 
+                id: productId 
+            }
+        })
+
+        if(rec){
+            res.json({
+                status: true,
+                message: 'Product Deleted Successfully',
+                data: rec
+            })
+        }else{
+            return res.json({
+                status: false,
+                message: 'Something error Found',
+                data: null
+            });
+        }
         
-        return res.json({
-            status: true,
-            message: 'Success ddfddf',
-            data: rec
-        });
-
-
     }catch(err){
         return res.json({
             status: false,
-            message: 'Something error found',
+            message: 'Something error found'+err.message,
             data: null
         });
     }

@@ -6,8 +6,18 @@ const Product = require("../_models/products/product");
 const { default: ErrorHandler } = require("../_utility/ErrorHandler/errorHandler");
 
 
-router.get("/get-product", (req, res) => {
+router.get("/get-product", async (req, res) => {
+    
     try{
+        const productId = req.query.productId;
+
+        const rec = await Product.findOne({
+            where: { 
+                id: productId 
+            }
+        })
+
+
         return res.json({
             status: true,
             message: 'Success ddfddf',
