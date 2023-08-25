@@ -6,19 +6,56 @@ const Product = require("../_models/products/product");
 const { default: ErrorHandler } = require("../_utility/ErrorHandler/errorHandler");
 
 
-router.get("/update-product", (req, res) => {
+router.get("/update-product", async (req, res) => {
+   
     try{
-        return res.json({
-            status: true,
-            message: 'Success ddfddf',
-            data: rec
+
+        const productId = req.query.productId;
+
+        if(!productId){
+            res.json({
+                status: false,
+                message: 'Product ID not selected . First select it after you can Update Product Detail',
+                data: null
+            })
+        }
+
+
+        const data = {
+            'name' : 'Aryan'
+        }
+
+        const rec = await Product.update(data, {
+            where: 
+            { 
+                id: productId 
+            } 
         });
+
+       
+        if(rec){
+            return res.json({
+                status: true,
+                message: 'Product Updated Successfully',
+                data: rec
+            })
+        }else{
+            return res.json({
+                status: false,
+                message: 'Something error Found',
+                data: null
+            });
+        }
+        
+
+
+        
 
 
     }catch(err){
         return res.json({
             status: false,
-            message: 'Something error found',
+            message: 'Something error found'+err.message,
             data: null
         });
     }

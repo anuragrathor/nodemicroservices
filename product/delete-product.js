@@ -12,6 +12,15 @@ router.post("/delete-product", async (req, res) => {
     try{
         const productId = req.query.productId;
 
+        if(!productId){
+            return res.json({
+                status: false,
+                message: 'Product not seletect . First Select Product to Delete it',
+                data: null
+            })
+        }
+
+
         const rec = await Product.destroy({
             where: { 
                 id: productId 
@@ -27,7 +36,7 @@ router.post("/delete-product", async (req, res) => {
         }else{
             return res.json({
                 status: false,
-                message: 'Something error Found',
+                message: 'Product ID not Found',
                 data: null
             });
         }

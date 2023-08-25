@@ -20,7 +20,7 @@ router.get("/get-product", async (req, res) => {
 
         return res.json({
             status: true,
-            message: 'Success ddfddf',
+            message: 'Product Detail Fetched',
             data: rec
         });
 

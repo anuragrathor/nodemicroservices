@@ -6,13 +6,27 @@ const Product = require("../_models/products/product");
 const { default: ErrorHandler } = require("../_utility/ErrorHandler/errorHandler");
 
 
-router.get("/top-cheap", (req, res) => {
+router.get("/top-cheap", async (req, res) => {
     try{
-        return res.json({
-            status: true,
-            message: 'Success ddfddf',
-            data: rec
-        });
+
+        await Product.findAndCountAll({
+            // where: {
+            //     price: '140'
+            // },
+            limit: 5
+          }).then(result => {
+            return res.json({
+                status: true,
+                message: 'Top Five Chepeast Product List',
+                data: result
+            });
+        }).catch((err)=> {
+            return res.json({
+                status: error,
+                message: 'Something error in Query',
+                data: null
+            });
+        })
 
 
     }catch(err){
