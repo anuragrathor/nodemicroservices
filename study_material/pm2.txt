@@ -1,8 +1,5 @@
-
 PM2 :
 	PM2 is a daemon process manager that will help you manage and keep your application online.
-	
-	
 	
 Installation :
 	The latest PM2 version is installable with NPM or Yarn:
@@ -10,7 +7,6 @@ Installation :
 	$ npm install pm2@latest -g
 	# or
 	$ yarn global add pm2
-
 
 Start an app :
 

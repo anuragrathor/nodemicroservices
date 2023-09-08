@@ -138,8 +138,7 @@ Seamlessly than acting on an app you can start/stop/restart/delete all apps cont
 	# Delete all
 	pm2 delete ecosystem.config.js
 
-	# Start Specific APP 
-	pm2 start ecosystem.config.js --only Product
+
 
 Act on a specific process
 
@@ -147,6 +146,9 @@ Act on a specific process
 
 	pm2 start   ecosystem.config.js --only api-app
 
+	# Start Specific APP 
+	pm2 start ecosystem.config.js --only Product
+	
 	Note: the --only option works for start/restart/stop/delete as well
 
 
