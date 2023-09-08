@@ -84,6 +84,10 @@ WebHook
 AWS
 	Piyush gupta AWS seried follow all
 	
+Axios
+
+Sequelize
+
 
 Short Topics cover
 	FFMPEG Command to Create MP4 Video Slideshow From Multiple Images in Command Line
@@ -98,4 +102,6 @@ Short Topics cover
 	Node.js Express Project to Download CSV File With Headers Using csv-express Middleware in Browser
 	Seach all other video of this user
 	Internationalization i18n in Express i18n node js #51 Node Js tutorial in Hindi
+	
+	
 	
