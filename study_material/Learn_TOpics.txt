@@ -1,0 +1,6 @@
+docker
+kubernate
+redis
+pm2
+aws
+file uploading in chunks
