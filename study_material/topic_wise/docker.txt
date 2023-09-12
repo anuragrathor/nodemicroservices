@@ -28,6 +28,17 @@ Docker :
 			
 			CMD ["npm", "run", "dev"]	"To Run the Docker image"
 			
+			---------------------------------------------------------------------------------------
+			
+		
+	Note :
+		** FROM node:16 : this will create image but it will take approx 1gb image size which is not good . so always use 
+		** FROM node:16-alpine  : it will take approx 300mb
+		
+		** CMD npm run dev : we can also write like this to run app. but this will create seperate shell session . it will open new terminal so we dont use it .
+		
+		
+		
 			
 3.)	To Build the image :
 
@@ -40,6 +51,8 @@ Docker :
 
 4.)	To create container : 
 
+	We create contailer and run image inside it .
+	
 	docker run --rm -d -p 5500:5500	--name backend-code-docker-container backend-code-image 
 	
 	it will build container 
@@ -89,10 +102,19 @@ Docker :
 			docker run --rm -d -p 5500:5600	-v --env-file ./.env $(pwd):/app --name backend-code-docker-container backend-code-image
 	
 	
+7.) Push Image on DockerHUb :
+
+		docker login
+			First login in docker account . provide username and password.
+		
+		docker push anuragrathore/backend-code-image	
 	
-	
-	
-	
+8.) Pull Image from DockerHub : 
+		To run image on another system need pull image .
+		
+		docker pull anuragrathore/backend-code-image
+		
+		now you can run image
 	
 	
 7.)	Usefull Commands : 	
@@ -112,5 +134,30 @@ Docker :
 
 		5.)	docker logs containerid :  show container logs
 
-		6.) 
+		6.) docker contailer ls : it will list all container which are running only . it will not list stopeed container.
+		
+		7.) docker contailer ls -a : it will list all container 
+		
+		8.)	docker contailer start containerid : to start container 
+		
+		9.) docker exec -it containerid sh : to enter inside container
+		
+		10.) docker contailer prune : this will remove all stopped container.
+		
+		11.) docker image prune : this will remove all stopped images.
+		
+		12.) docker system prune -a :  Clean all container and images which running and stopped all .
 	
+		13.) 
+	
+
+
+Docker compose : 
+	it used for multi container application
+	
+	create file docker-compose.yaml
+	
+		services : 
+			api : 
+			
+			client:
