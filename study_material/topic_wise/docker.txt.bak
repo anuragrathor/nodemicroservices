@@ -1,0 +1,143 @@
+Docker :
+	
+	.dockerignore
+		we need to ignore these things which don't go in image when we build image.
+		Create .dockerignore file for not including some modules etc in our image. which are as following
+			node_modules :  when we build docker image then npm install command run auto so we dont need it in image.
+			.env 		 :  we store credentials like secreat key,db url so Hide secreat things we ignore it in image.
+			.git			
+			.DS_Store    :  if you are on MAC OS then this file create automatically
+			dist
+			.aws 		 : if you are using aws
+			.coverage
+			
+		
+	Dockerfile
+		Create Dockerfile with the name "Dockerfile".
+			FROM node:16
+			
+			WORKDIR	/app
+			
+			COPY ./package*.json ./     "This will copy package and package-lock both file in current directory"
+			
+			RUN npm install
+			
+			COPY . .              "Copy all source code from current directory to inside docker working directory which are inside container"
+			
+			EXPOSE 5500			"Expose port open ..its only documentation not open port"
+			
+			CMD ["npm", "run", "dev"]	"To Run the Docker image"
+			
+			
+To Build the image :
+
+	docker image -t backend-code-image .   
+	
+	"this command will create the image which configuration are inside docker file in current directory. 
+	. for current directory and 
+	backend-code is the image name here . "
+	
+
+To create container : 
+
+	docker run --rm -d -p 5500:5500	--name backend-code-docker-container backend-code-image 
+	
+	it will build container 
+	"--rm : will clean old container and create new contailer with same name. otherwise conflict comes when we use same name for container"
+	"-d : it run it in background , -it : is interective"
+	"-p : "  map container port to our machine port 5500:5500
+	"--name backend-code-docker-container :  name of the container"
+	"backend-code-image :  docker image name"
+	
+	
+	
+	
+To Volume Binding : 
+
+	To Reflect chages of code in container same time we use volume binding.
+	
+	docker run --rm -d -p 5500:5500	-v $(pwd):/app --name backend-code-docker-container backend-code-image 	
+	
+		
+	%cd%  		: give you current folder absolute path for windows .. for mac/linux use $(pwd):/app
+	$(pwd):/app :  map host directory to /app is out working directory with container	now when we change in code it will reflect same time .
+	
+	
+	SomeTime Nodemon not update changes properly then please do in script 
+	
+	nodemon -L index.js inside package.json file .  " it will use nodemon legacy version "
+	
+	
+	
+	
+	
+	
+Pass Environment Variable : 
+		We are not including .env file in docker image . so sometimes we need it so we can pass it multiple ways.
+		
+		Pass Single environment variable :
+			docker run --rm -d -p 5500:5600	-v -e PORT='5600' $(pwd):/app --name backend-code-docker-container backend-code-image 
+		
+			docker run --rm -d -p 5500:5600	-v -e PORT='5600' -e dbpass='rathore' $(pwd):/app --name backend-code-docker-container backend-code-image
+			
+			we pass PORT environment variable like this way.
+	
+		
+	
+		Suppose we have many environment variable then we can also pass the env file like this way :
+		
+			docker run --rm -d -p 5500:5600	-v --env-file ./.env $(pwd):/app --name backend-code-docker-container backend-code-image
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+Usefull Commands : 	
+1.) docker image ls :  List all docker images which we build
+
+2.) docker run --rm -d -p 5500:5500	--name backend-code-docker-container backend-code-image   
+
+	"--rm : will clean old container and create new contailer with same name. otherwise conflict comes when we use same name for container"
+	"-d : it run it in background , -it : is interective"
+	"-p : "  map container port to our machine port 5500:5500
+	"--name backend-code-docker-container :  name of the container"
+	"backend-code-image :  docker image name"
+	
+3.) docker ps :  to list container list
+
+4.) docker stop b4678430960   :  "b4678430960 : this is the docker container id . we can stop our container using this command"
+
+5.)	docker logs containerid :  show container logs
+
+6.) 
+	
