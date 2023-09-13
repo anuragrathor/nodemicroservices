@@ -159,5 +159,23 @@ Docker compose :
 	
 		services : 
 			api : 
+				build: 
+					context: ./node_app
+					dockerfile: Dockerfile
+				image: node-api-image:1.0.0
+				ports:
+				 - "3000:3000"
+				volumes:
+				 - ./node_app:/app
+				environment:
+					API_KEY : dfsdfsdfsdfsdfs
+					
 			
-			client:
+			
+Commands			
+1.) docker-compose up : it create container if not found and run it. if already exist container then start it.
+	docker-compose up -d : run in detached mode
+2.) docker-compose down :  stop our container and delete also .
+3.) docker-compose ps : show list of containers 
+4.) docker-compose build : it will create only image but not create container and dont run it.		
+		
