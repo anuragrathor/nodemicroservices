@@ -1,3 +1,6 @@
+Complete Udemy NodeJS course First .
+
+
 Authentication :
 	JWT Authentication Tutorial - Node.js and React
 	Node.js With Passport Authentication Full Project
@@ -42,7 +45,7 @@ Logger
 	Winston Logger Playwright Tutorial Part 51
 	
 Nginx
-	
+	Nginx crash course in Hindi _ Coders Gyan 🚀🔥
 	
 NodeJS Cluster
 	Node Js cluster module _ Utilize all CPU cores _ Hindi 🔥
@@ -102,6 +105,11 @@ Short Topics cover
 	Node.js Express Project to Download CSV File With Headers Using csv-express Middleware in Browser
 	Seach all other video of this user
 	Internationalization i18n in Express i18n node js #51 Node Js tutorial in Hindi
+
+
+Complete Video :
+
+Ecommerce API : https://www.youtube.com/watch?v=S6Yd5cPtXr4&t=1025s
 	
 	
 	

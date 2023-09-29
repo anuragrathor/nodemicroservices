@@ -5,7 +5,7 @@ module.exports = {
         authentication: 8081,
         product: 8082,
         video: 8083,
-        business: 8083,
+        integration: 8084,
     },
     SMTP_HOST: 'smtp-relay.sendinblue.com',
     USER_NAME: 'anuragprofitfox@gmail.com',

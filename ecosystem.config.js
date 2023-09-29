@@ -11,6 +11,10 @@ module.exports = {
   {
     name   : "video",
     script : "./video/index.js"
+  },
+  {
+    name   : "integration",
+    script : "./integration/index.js"
   }
 ]
 }
